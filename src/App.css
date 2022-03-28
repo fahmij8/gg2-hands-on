@@ -26,6 +26,11 @@
     max-width: 500px;
 }
 
+.App-Title,
+#search-status {
+    color: #fff;
+}
+
 .App-Button {
     padding: 10px;
     border: 1px solid #ccc;
