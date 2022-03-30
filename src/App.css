@@ -27,7 +27,7 @@
 }
 
 .App-Title,
-#search-status {
+.search-result {
     color: #fff;
 }
 
@@ -37,4 +37,8 @@
     border-radius: 4px;
     cursor: pointer;
     background-color: #eee;
+}
+
+.search-result {
+    margin-top: 20px;
 }

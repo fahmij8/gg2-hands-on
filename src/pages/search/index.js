@@ -1,64 +1,60 @@
-import { Component } from "react";
 import AppImage from "components/AppImage";
+import { useState } from "react";
 
-class Index extends Component {
-    state = {
-        searchQuery: "",
-        searchResults: "Lets search something!",
-    };
+function Search() {
+    const [searchQuery, setSearchQuery] = useState("");
+    const [searchResults, setSearchResults] = useState(
+        "Lets search something!"
+    );
 
-    handleSearch = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        this.setState({ searchResults: "Searching..." });
+        setSearchResults("Searching...");
         fetch(
-            `https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_GIPHY_API_KEY}&q=${this.state.searchQuery}&limit=12`
+            `https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_GIPHY_API_KEY}&q=${searchQuery}&limit=12`
         )
             .then((response) => response.json())
             .then((lists) => {
                 if (lists.data.length === 0) {
-                    this.setState({ searchResults: "No results found!" });
+                    setSearchResults("No results found");
                 } else {
-                    this.setState({ searchResults: lists.data });
+                    setSearchResults(lists.data);
                 }
             })
             .catch((error) => {
                 console.error(error);
-                this.setState({ searchResults: "Error happened!" });
+                setSearchResults("Error Happened!");
             });
     };
 
-    render() {
-        return (
-            <>
-                <form onSubmit={(event) => this.handleSearch(event)}>
-                    <input
-                        type="text"
-                        className="App-Input"
-                        placeholder="Type your search here"
-                        value={this.state.searchQuery}
-                        onChange={(event) =>
-                            this.setState({ searchQuery: event.target.value })
-                        }
-                    ></input>
-                    <button className="App-Button">Search</button>
-                </form>
+    return (
+        <>
+            <form onSubmit={(event) => handleSubmit(event)}>
+                <input
+                    type="text"
+                    className="App-Input"
+                    placeholder="Type your search here"
+                    value={searchQuery}
+                    onChange={(event) => setSearchQuery(event.target.value)}
+                ></input>
+                <button className="App-Button">Search</button>
+            </form>
 
-                <div id="search-status">
-                    {typeof this.state.searchResults === "string"
-                        ? this.state.searchResults
-                        : this.state.searchResults.map((item) => {
-                              return (
-                                  <AppImage
-                                      url={item.images.fixed_width.url}
-                                      title={item.title}
-                                      key={item.id}
-                                  ></AppImage>
-                              );
-                          })}
-                </div>
-            </>
-        );
-    }
+            <div className="search-result">
+                {typeof searchResults === "string"
+                    ? searchResults
+                    : searchResults.map((item) => {
+                          return (
+                              <AppImage
+                                  url={item.images.fixed_width.url}
+                                  title={item.title}
+                                  key={item.id}
+                              ></AppImage>
+                          );
+                      })}
+            </div>
+        </>
+    );
 }
 
-export default Index;
+export default Search;
