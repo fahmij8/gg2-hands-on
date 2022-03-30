@@ -1,5 +1,5 @@
 import AppImage from "components/AppImage";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Search() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -7,8 +7,19 @@ function Search() {
         "Lets search something!"
     );
 
+    useEffect(() => {
+        if (searchQuery) {
+            searchGIF();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchQuery]);
+
     const handleSubmit = (event) => {
         event.preventDefault();
+        searchGIF();
+    };
+
+    const searchGIF = () => {
         setSearchResults("Searching...");
         fetch(
             `https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_GIPHY_API_KEY}&q=${searchQuery}&limit=12`
