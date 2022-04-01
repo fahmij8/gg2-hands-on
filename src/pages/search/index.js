@@ -1,4 +1,5 @@
 import AppImage from "components/AppImage";
+import SearchBar from "components/SearchBar";
 import { useState, useEffect } from "react";
 
 function Search() {
@@ -8,9 +9,12 @@ function Search() {
     );
 
     useEffect(() => {
-        if (searchQuery) {
-            searchGIF();
-        }
+        const debounce = setTimeout(() => {
+            if (searchQuery) {
+                searchGIF();
+            }
+        }, 500);
+        return () => clearTimeout(debounce);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchQuery]);
 
@@ -41,14 +45,10 @@ function Search() {
     return (
         <>
             <form onSubmit={(event) => handleSubmit(event)}>
-                <input
-                    type="text"
-                    className="App-Input"
-                    placeholder="Type your search here"
-                    value={searchQuery}
-                    onChange={(event) => setSearchQuery(event.target.value)}
-                ></input>
-                <button className="App-Button">Search</button>
+                <SearchBar
+                    searchQuery={searchQuery}
+                    setSearchQuery={setSearchQuery}
+                ></SearchBar>
             </form>
 
             <div className="search-result">
