@@ -1,20 +1,18 @@
 import AppImage from "components/AppImage";
 import SearchBar from "components/SearchBar";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 function Search() {
-    const [searchQuery, setSearchQuery] = useState("");
+    const searchQuery = useSelector((state) => state.searchQuery.value);
     const [searchResults, setSearchResults] = useState(
         "Lets search something!"
     );
 
     useEffect(() => {
-        const debounce = setTimeout(() => {
-            if (searchQuery) {
-                searchGIF();
-            }
-        }, 500);
-        return () => clearTimeout(debounce);
+        if (searchQuery) {
+            searchGIF();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchQuery]);
 
@@ -45,10 +43,7 @@ function Search() {
     return (
         <>
             <form onSubmit={(event) => handleSubmit(event)}>
-                <SearchBar
-                    searchQuery={searchQuery}
-                    setSearchQuery={setSearchQuery}
-                ></SearchBar>
+                <SearchBar></SearchBar>
             </form>
 
             <div className="search-result">
