@@ -3,6 +3,7 @@
     padding: 50px 0;
     background-color: #282c34;
     min-height: 100vh;
+    color: white;
 }
 
 .App-Input {
@@ -37,6 +38,24 @@
     border-radius: 4px;
     cursor: pointer;
     background-color: #eee;
+}
+
+.App-nav {
+    color: white;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.App-nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.App-nav a:hover {
+    text-decoration: underline;
 }
 
 .search-result {
