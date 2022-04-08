@@ -1,5 +1,5 @@
 import "./App.css";
-import Search from "./pages/Search";
+import Search from "pages/Search";
 import Trending from "pages/Trending";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
