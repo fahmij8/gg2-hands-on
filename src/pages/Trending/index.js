@@ -1,5 +1,9 @@
 import AppImage from "components/AppImage";
 import { useEffect, useState } from "react";
+import { Item } from "../Search";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Container from "@mui/material/Container";
 
 function Trending() {
     const [trendingImage, setTrendingImage] = useState("Loading...");
@@ -37,17 +41,30 @@ function Trending() {
 
     return (
         <>
-            {typeof trendingImage === "string"
-                ? trendingImage
-                : trendingImage.map((item) => {
-                      return (
-                          <AppImage
-                              url={item.images.fixed_width.url}
-                              title={item.title}
-                              key={item.id}
-                          ></AppImage>
-                      );
-                  })}
+            <Container maxWidth="lg">
+                <Box sx={{ flexGrow: 1 }}>
+                    <Grid container spacing={2}>
+                        {typeof trendingImage === "string"
+                            ? trendingImage
+                            : trendingImage.map((item) => {
+                                  return (
+                                      <Grid item xs={12} md={4} key={item.id}>
+                                          <Item>
+                                              <AppImage
+                                                  url={
+                                                      item.images.fixed_width
+                                                          .url
+                                                  }
+                                                  title={item.title}
+                                                  key={item.id}
+                                              ></AppImage>
+                                          </Item>
+                                      </Grid>
+                                  );
+                              })}
+                    </Grid>
+                </Box>
+            </Container>
             <div style={{ margin: "20px 0" }}>
                 {trendingOffset > 0 && (
                     <button

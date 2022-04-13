@@ -18,13 +18,12 @@
 }
 
 .App-Image {
-    margin-top: 20px;
+    padding: 10px;
 }
 
 .App-Image > img {
     width: 100%;
-    min-width: 300px;
-    max-width: 500px;
+    height: 200px;
 }
 
 .App-Title,

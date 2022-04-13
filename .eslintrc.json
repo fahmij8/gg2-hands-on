@@ -20,5 +20,12 @@
         "sourceType": "module"
     },
     "plugins": ["react", "react-hooks", "jsx-a11y", "import", "@babel"],
-    "rules": {}
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"],
+                "moduleDirectory": ["node_modules", "src"]
+            }
+        }
+    }
 }

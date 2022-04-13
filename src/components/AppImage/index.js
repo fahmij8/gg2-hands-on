@@ -4,7 +4,7 @@ const AppImage = ({ url, title }) => {
             <div className="App-Image">
                 <img src={url} alt={title} />
             </div>
-            <small className="App-Title">{title}</small>
+            <small>{title}</small>
         </>
     );
 };
