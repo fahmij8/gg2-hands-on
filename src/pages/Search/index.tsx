@@ -7,6 +7,7 @@ import Container from "@mui/material/Container";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { styled } from "@mui/material/styles";
+import { SearchSlice, GiphySearchResult, GiphyData } from "types";
 
 export const Item = styled(Paper)(({ theme }) => ({
     pallete: {
@@ -19,13 +20,15 @@ export const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-function Search() {
-    const searchQuery = useSelector((state) => state.searchQuery.value);
-    const [searchResults, setSearchResults] = useState(
+function Search(): JSX.Element {
+    const searchQuery = useSelector(
+        (state: SearchSlice) => state.searchQuery.value
+    );
+    const [searchResults, setSearchResults] = useState<string | GiphyData[]>(
         "Lets search something!"
     );
 
-    useEffect(() => {
+    useEffect((): void => {
         if (searchQuery) {
             searchGIF();
         } else {
@@ -34,7 +37,7 @@ function Search() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchQuery]);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
         searchGIF();
     };
@@ -44,7 +47,7 @@ function Search() {
         fetch(
             `https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_GIPHY_API_KEY}&q=${searchQuery}&limit=12`
         )
-            .then((response) => response.json())
+            .then((response): Promise<GiphySearchResult> => response.json())
             .then((lists) => {
                 if (lists.data.length === 0) {
                     setSearchResults("No results found");

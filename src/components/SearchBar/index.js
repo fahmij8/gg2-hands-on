@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { setSearchQuery } from "../../search-slice";
+import { setSearchQuery } from "../../store/search-slice";
 import { useState, useEffect } from "react";
 import { createTheme } from "@mui/material";
 import { ThemeProvider } from "@mui/material";
