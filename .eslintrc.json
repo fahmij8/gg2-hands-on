@@ -2,7 +2,8 @@
     "env": {
         "browser": true,
         "es2021": true,
-        "node": true
+        "node": true,
+        "jest": true
     },
     "extends": [
         "eslint:recommended",
@@ -12,6 +13,7 @@
         "plugin:react-hooks/recommended",
         "plugin:import/errors"
     ],
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -19,7 +21,14 @@
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    "plugins": ["react", "react-hooks", "jsx-a11y", "import", "@babel"],
+    "plugins": [
+        "react",
+        "@typescript-eslint",
+        "react-hooks",
+        "jsx-a11y",
+        "import",
+        "@babel"
+    ],
     "settings": {
         "import/resolver": {
             "node": {
@@ -27,5 +36,10 @@
                 "moduleDirectory": ["node_modules", "src"]
             }
         }
+    },
+    "rules": {
+        "react/prop-types": "off",
+        "operator-linebreak": "off",
+        "indent": "off"
     }
 }

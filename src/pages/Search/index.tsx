@@ -1,24 +1,11 @@
 import AppImage from "components/AppImage";
 import SearchBar from "components/SearchBar";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { styled } from "@mui/material/styles";
 import { SearchSlice, GiphySearchResult, GiphyData } from "types";
-
-export const Item = styled(Paper)(({ theme }) => ({
-    pallete: {
-        type: "dark",
-    },
-    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-}));
 
 function Search(): JSX.Element {
     const searchQuery = useSelector(
@@ -45,7 +32,8 @@ function Search(): JSX.Element {
     const searchGIF = () => {
         setSearchResults("Searching...");
         fetch(
-            `https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_GIPHY_API_KEY}&q=${searchQuery}&limit=12`
+            `https://api.giphy.com/v1/gifs/search?api_key=` +
+                `${process.env.REACT_APP_GIPHY_API_KEY}&q=${searchQuery}&limit=12`
         )
             .then((response): Promise<GiphySearchResult> => response.json())
             .then((lists) => {
@@ -76,15 +64,17 @@ function Search(): JSX.Element {
                         ) : (
                             searchResults.map((item) => {
                                 return (
-                                    <Grid item xs={12} md={4} key={item.id}>
-                                        <Item>
-                                            <AppImage
-                                                url={
-                                                    item.images.fixed_width.url
-                                                }
-                                                title={item.title}
-                                            ></AppImage>
-                                        </Item>
+                                    <Grid
+                                        item
+                                        xs={12}
+                                        sm={6}
+                                        md={4}
+                                        key={item.id}
+                                    >
+                                        <AppImage
+                                            url={item.images.fixed_width.url}
+                                            title={item.title}
+                                        ></AppImage>
                                     </Grid>
                                 );
                             })

@@ -1,12 +1,14 @@
 import AppImage from "components/AppImage";
 import { useEffect, useState } from "react";
-import { Item } from "../Search";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
+import { GiphyData } from "types";
 
-function Trending() {
-    const [trendingImage, setTrendingImage] = useState("Loading...");
+function Trending(): JSX.Element {
+    const [trendingImage, setTrendingImage] = useState<string | []>(
+        "Loading..."
+    );
     const [trendingOffset, setTrendingOffset] = useState(0);
 
     useEffect(() => {
@@ -31,7 +33,7 @@ function Trending() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [trendingOffset]);
 
-    const handleOffset = (number) => {
+    const handleOffset = (number: number) => {
         window.scrollTo({
             top: 0,
             behavior: "smooth",
@@ -46,19 +48,14 @@ function Trending() {
                     <Grid container spacing={2}>
                         {typeof trendingImage === "string"
                             ? trendingImage
-                            : trendingImage.map((item) => {
+                            : trendingImage.map((item: GiphyData) => {
                                   return (
                                       <Grid item xs={12} md={4} key={item.id}>
-                                          <Item>
-                                              <AppImage
-                                                  url={
-                                                      item.images.fixed_width
-                                                          .url
-                                                  }
-                                                  title={item.title}
-                                                  key={item.id}
-                                              ></AppImage>
-                                          </Item>
+                                          <AppImage
+                                              url={item.images.fixed_width.url}
+                                              title={item.title}
+                                              key={item.id}
+                                          ></AppImage>
                                       </Grid>
                                   );
                               })}
